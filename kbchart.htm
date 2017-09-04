@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="kbchart.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawSeriesChart);
+      function drawSeriesChart() {
+        var data = google.visualization.arrayToDataTable(kbchart);
+
+        var options = {
+          title: 'Exoplanets in comparison to Earth.  (Color = planet temperature)',
+          hAxis: {title: 'Distance to the planetary system (parsecs)', logScale: true},
+          vAxis: {title: 'Planet Mass (Earth mass)', logScale: true},
+          bubble: {textStyle: {fontSize: 11, auraColor: 'none'}},
+
+          colorAxis: {colors: ['CornflowerBlue', 'LightGreen', 'Yellow', 'OrangeRed']}
+        };
+
+        var chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 1280px; height: 720px;"></div>
+  </body>
+</html>

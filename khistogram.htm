@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="d3.v3.js"> </script>
+<script src="khistogram.js"></script>
+<style>
+.bar {
+  fill: darkmagenta;
+}
+.bar:hover {
+  fill: steelblue;
+}
+.title {
+  font: bold 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.axis {
+  font: 11px sans-serif;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: black;
+}
+.x.axis path {
+  display: none;
+}
+.tick line {
+    opacity: 0.2;
+  }
+</style>
+<body>
+
+<script type="text/javascript">
+var margin = {top: 80, right: 180, bottom: 80, left: 180},
+    width = 1366 - margin.left - margin.right,
+    height = 768 - margin.top - margin.bottom;
+
+var data = khistogram;
+
+var x = d3.scale.ordinal()
+    .domain(data.map(function(d) { return d.year; }))
+    .rangeRoundBands([0, width], .1, .3);
+
+var y = d3.scale.linear()
+    .domain([0, d3.max(data, function(d) { return d.amount; })])
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .innerTickSize(-width);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  svg.append("text")
+      .attr("class", "title")
+      .attr("x", x(data[0].year))
+      .attr("y", -26)
+      .text("Exoplanets Discovered by Year");
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+  svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.year); })
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.amount); })
+      .attr("height", function(d) { return height - y(d.amount); });
+
+</script>
+</body>
