@@ -1,4 +1,7 @@
 # Habitable-exoplanets-visualisation
+
+The project can be found also here [GSFC Exoplanet Modeling and Analysis Center (EMAC)](https://emac.gsfc.nasa.gov/?q=habitable)
+<br/><br/><br/>
 Visualization of the open data from NASA Exoplanets Archive of planets outside the solar system that are similar to the Earth and habitable.
 
 Using the open data from NASA Exoplanets Archive (https://exoplanetarchive.ipac.caltech.edu/index.html). By means of NASA API the planets outside the solar system that are similar to the Earth and habitable were parsed and stored to SQLite database:
